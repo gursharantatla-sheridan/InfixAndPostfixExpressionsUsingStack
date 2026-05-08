@@ -4,14 +4,11 @@ namespace InfixAndPostfixExpressionsUsingStack
 {
     public class InfixPostFixExpression
     {
-        // private field
-        private StringBuilder _postfix = new StringBuilder();
-
-
         // converts infix expression to postfix expression, and returns the postfix expression
         public StringBuilder ConvertToPostfix(StringBuilder infix)
         {
             Stack<char> stack = new Stack<char>();
+            StringBuilder postfix = new StringBuilder();
 
             stack.Push('(');
             infix.Append(')');
@@ -28,7 +25,7 @@ namespace InfixAndPostfixExpressionsUsingStack
                     // if it is a digit, append it to postfix
                     if (char.IsDigit(ch))
                     {
-                        _postfix.Append(ch);
+                        postfix.Append(ch);
                     }
                     // if it is a left parenthesis, push it onto the stack
                     else if (ch == '(')
@@ -46,7 +43,7 @@ namespace InfixAndPostfixExpressionsUsingStack
                         // pop from stack and append to postfix
                         if (Precedence(ch, topOfStack))
                         {
-                            _postfix.Append(stack.Pop());
+                            postfix.Append(stack.Pop());
                         }
 
                         // push the current char onto the stack
@@ -60,7 +57,7 @@ namespace InfixAndPostfixExpressionsUsingStack
                         // is at the top of the stack
                         while (stack.Peek() != '(')
                         {
-                            _postfix.Append(stack.Pop());
+                            postfix.Append(stack.Pop());
                         }
 
                         // pop (and discard) the left parenthesis 
@@ -71,7 +68,7 @@ namespace InfixAndPostfixExpressionsUsingStack
             }
 
             // return the formatted postfix expression
-            return FormatPostfix(_postfix);
+            return FormatPostfix(postfix);
         }
 
 
